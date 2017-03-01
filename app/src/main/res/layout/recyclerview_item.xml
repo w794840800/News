@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+
+<com.facebook.drawee.view.SimpleDraweeView
+    android:id="@+id/draweeView"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center"
+    fresco:placeholderImage="@drawable/moren"
+    />
+  <!-- fresco:placeholderImage="@drawable/moren"-->
+
+<LinearLayout
+    android:layout_marginLeft="10dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_margin="3dp"
+        android:padding="3dp"
+    android:id="@+id/recycler_item"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="22sp"
+        android:textStyle="bold"
+    android:text="hello17717902547"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+<TextView
+    android:layout_marginTop="2dp"
+    android:layout_gravity="bottom"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="2015.12.23"
+
+    />
+
+    <View
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#fff"
+        />
+</LinearLayout>
+
+</LinearLayout>
