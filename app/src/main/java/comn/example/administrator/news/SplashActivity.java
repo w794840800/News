@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -37,15 +39,15 @@ ImageView imageView;
 
 
         setContentView(R.layout.activity_splash);
-
+//new ScaleAnimation()
         imageView= (ImageView) findViewById(R.id.imageView);
 
-        final ObjectAnimator valueAnimator=ObjectAnimator.ofFloat(imageView,"rotation",
-                0.5f,0.5f);
+        final ObjectAnimator valueAnimator=ObjectAnimator.ofFloat(imageView,"translationX",
+                0,100,1f);
         valueAnimator.setDuration(2000);
         OkHttpClient okHttpClient=new OkHttpClient();
-
-        Retrofit retrofit=new Retrofit.Builder()
+                 valueAnimator.start();
+      /*  Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl("https://api.douban.com/v2/")
 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -70,7 +72,7 @@ ImageView imageView;
           Toast.makeText(getApplicationContext(),""+douban.getBooks().get(0).getAuthor(),Toast.LENGTH_LONG).show();
                     //    Toast.makeText(getApplicationContext(),"onnext"+,Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
      /*   Call<douban >call= retrofit.create(BlueService.class).getSearchBooks
                 ("小王子", "", 0, 3);*/
         //Observable<douban>observable=Observable.create()
