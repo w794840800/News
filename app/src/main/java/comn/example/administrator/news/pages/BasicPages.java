@@ -33,8 +33,10 @@ import comn.example.administrator.news.db.DaoUtils;
 import comn.example.administrator.news.db.dateBaseSQLite;
 import comn.example.administrator.news.file.FileDao;
 import comn.example.administrator.news.jean.weixinjinxuan;
+import comn.example.administrator.news.net.RetrofitManager;
 import comn.example.administrator.news.sp.SharedPreferences;
 import comn.example.administrator.news.webViewActivity;
+import rx.Observer;
 import utils.parseGson;
 import utils.urlConnection;
 
@@ -51,6 +53,7 @@ public class BasicPages {
     MyAsynTask myAsynTask=null;
     // public static BasicPages mBasicPages;
   //  private  ArrayAdapter recyclerAdapter;
+Observer<weixinjinxuan>observer;
    MyAdapter myAdapter;
     DaoUtils daoUtils;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -58,26 +61,29 @@ public class BasicPages {
     RecyclerView basic_recycler;
         View addView;
     Activity mainActivity;
-
-    public BasicPages(Activity activity,String u,String name,DaoUtils daoUtils1)
+String type;
+    public BasicPages(Activity activity,String u,String name,DaoUtils daoUtils1,String type)
     {
+        this.type=type;
+
        // arrayBean
         daoUtils=daoUtils1;
         tableName=name;
          Cursor cursor=daoUtils.read("select * from "+tableName);
-          while (cursor.moveToNext()){
-              weixinjinxuan.NewslistBean  bean=new weixinjinxuan.NewslistBean();
-              bean.setCtime(cursor.getString(0));
-              bean.setDescription(cursor.getString(2));
-              bean.setTitle(cursor.getString(1));
-              bean.setPicUrl(cursor.getString(3));
-              bean.setUrl(cursor.getString(4));
-             // Toast.makeText(activity, ""+cursor.getString(5), Toast.LENGTH_SHORT).show();
-              arrayBean.add(bean);
-              //cursor.moveToNext();
+        if (cursor!=null) {
+            while (cursor.moveToNext()) {
+                weixinjinxuan.NewslistBean bean = new weixinjinxuan.NewslistBean();
+                bean.setCtime(cursor.getString(0));
+                bean.setDescription(cursor.getString(2));
+                bean.setTitle(cursor.getString(1));
+                bean.setPicUrl(cursor.getString(3));
+                bean.setUrl(cursor.getString(4));
+                // Toast.makeText(activity, ""+cursor.getString(5), Toast.LENGTH_SHORT).show();
+                arrayBean.add(bean);
+                //cursor.moveToNext();
 
-          }
-
+            }
+        }
         //dataBaseSQLite=new dateBaseSQLite(mainActivity,name);
      //   daoUtils=new DaoUtils(mainActivity,dataBaseSQLite);
        //sqLiteDatabase1=dataBaseSQLite.getWritableDatabase();
@@ -102,29 +108,64 @@ public class BasicPages {
 
     }
     public void updateDate(){
-       /* if (myAsynTask.getStatus()== AsyncTask.Status.RUNNING) {
-            myAsynTask.cancel(true);
-        }*/
-       // Toast.makeText(mainActivity, "begin", Toast.LENGTH_SHORT).show();
-      /* new Thread(new Runnable() {
-           @Override
-           public void run() {
-
-
-
-               arrayBean= (ArrayList<weixinjinxuan.NewslistBean>) urlConnection.
-                       getJsonDate
-                               (myAdapter,"https://api.tianapi.com/wxnew/?" +
-                                       "key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10");
-
-           }
-       }).start();*/
-       /* MyAsynTask myAsynTask= (MyAsynTask) new MyAsynTask().execute("https://api.tianapi.com/wxnew/?" +
-                "key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10");*/
-        /*new MyAsynTask().execute("https://www.baidu.com");*/
-        //Toast.makeText(mainActivity, "end", Toast.LENGTH_SHORT).show();
-  new MyAsynTask().execute(url);
+      //Asuntask请求
+//  new MyAsynTask().execute(url);
         //myAsynTask.execute(url);
+//retrofit请求
+     RetrofitManager.getRetrofitManager().get(type, new Observer<weixinjinxuan>() {
+          @Override
+          public void onCompleted() {
+
+          }
+
+          @Override
+          public void onError(Throwable e) {
+
+          }
+
+          @Override
+          public void onNext(weixinjinxuan weixinjinxuan) {
+ //  Toast.makeText(mainActivity,weixinjinxuan.toString(),Toast.LENGTH_SHORT).show();
+            /* swipeRefreshLayout.setRefreshing(false);
+              if (weixinjinxuan!=null) {
+                  ArrayList<weixinjinxuan.NewslistBean>linshiArrayList
+                          = (ArrayList<weixinjinxuan.NewslistBean>) weixinjinxuan.getNewslist();
+
+
+
+                  for (weixinjinxuan.NewslistBean a : linshiArrayList) {
+                      if (!(daoUtils.queryTime(a.getTitle(),tableName))){
+
+                          daoUtils.insert("insert into " + tableName + " values(?,?,?,?,?)",
+                                  new String[]{
+                                          a.getCtime(), a.getTitle(),
+                                          a.getDescription(), a.getPicUrl(),
+                                          a.getUrl()});
+                      }
+
+                  }}
+
+              arrayBean.clear();
+              Cursor cursor=daoUtils.read("select *from "+tableName);
+              while (cursor.moveToNext()){
+                  weixinjinxuan.NewslistBean aa=new weixinjinxuan.NewslistBean();
+                  aa.setUrl(cursor.getString(cursor.getColumnIndex("url")));
+                  aa.setPicUrl(cursor.getString(cursor.getColumnIndex("picUrl")));
+                  aa.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+                  aa.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+                  aa.setCtime(cursor.getString(cursor.getColumnIndex("ctime")));
+                  arrayBean.add(aa);
+                  //cursor.moveToNext();
+              }
+              cursor.close();
+              setArraylist(arrayBean);
+              // String content=new FileDao().read(mainActivity,"page 1.txt");
+              myAdapter.notifyDataSetChanged();
+*/
+insertDate(weixinjinxuan);
+
+          }
+      });
 
         myAdapter.notifyDataSetChanged();
             // myAsynTask.cancel(true);
@@ -248,7 +289,7 @@ holder.draweeView.setImageURI(arrayBean.get(position).getPicUrl());
                 while ((strRead = reader.readLine()) != null) {
                     sbf.append(strRead);
                     sbf.append("\r\n");
-                    publishProgress(strRead);
+    //                publishProgress(strRead);
                 }
                 reader.close();
                 result = sbf.toString();
@@ -278,12 +319,8 @@ holder.draweeView.setImageURI(arrayBean.get(position).getPicUrl());
             weixinjinxuan weixin=gson.fromJson(newslistBeen,weixinjinxuan.class);
                 SharedPreferences.wirteSharedPreference(mainActivity,newslistBeen);
 swipeRefreshLayout.setRefreshing(false);
-            /*for (int i=0;i<weixin.getNewslist().size();i++){
+/*
 
-                Toast.makeText(mainActivity,weixin.getNewslist().get(i).getTitle(),Toast.LENGTH_SHORT)
-                        .show();
-
-            }*/
 if (weixin!=null) {
     ArrayList<weixinjinxuan.NewslistBean>linshiArrayList
             = (ArrayList<weixinjinxuan.NewslistBean>) weixin.getNewslist();
@@ -300,13 +337,7 @@ if (weixin!=null) {
                                a.getUrl()});
            }
 
-        //arrayBean
-
-    }
-
-
-    //Toast.makeText(mainActivity,"read sp"+SharedPreferences.readSp(mainActivity),Toast.LENGTH_SHORT).show();
-}
+    }}
 
             arrayBean.clear();
             Cursor cursor=daoUtils.read("select *from "+tableName);
@@ -324,9 +355,50 @@ if (weixin!=null) {
             setArraylist(arrayBean);
             // String content=new FileDao().read(mainActivity,"page 1.txt");
             myAdapter.notifyDataSetChanged();
-
+*/
+insertDate(weixin);
 
         }
     }
+public void insertDate(weixinjinxuan wei){
+
+    swipeRefreshLayout.setRefreshing(false);
+
+    if (wei!=null) {
+        ArrayList<weixinjinxuan.NewslistBean>linshiArrayList
+                = (ArrayList<weixinjinxuan.NewslistBean>) wei.getNewslist();
+
+
+
+        for (weixinjinxuan.NewslistBean a : linshiArrayList) {
+            if (!(daoUtils.queryTime(a.getTitle(),tableName))){
+
+                daoUtils.insert("insert into " + tableName + " values(?,?,?,?,?)",
+                        new String[]{
+                                a.getCtime(), a.getTitle(),
+                                a.getDescription(), a.getPicUrl(),
+                                a.getUrl()});
+            }
+
+        }}
+
+    arrayBean.clear();
+    Cursor cursor=daoUtils.read("select *from "+tableName);
+    while (cursor.moveToNext()){
+        weixinjinxuan.NewslistBean aa=new weixinjinxuan.NewslistBean();
+        aa.setUrl(cursor.getString(cursor.getColumnIndex("url")));
+        aa.setPicUrl(cursor.getString(cursor.getColumnIndex("picUrl")));
+        aa.setDescription(cursor.getString(cursor.getColumnIndex("description")));
+        aa.setTitle(cursor.getString(cursor.getColumnIndex("title")));
+        aa.setCtime(cursor.getString(cursor.getColumnIndex("ctime")));
+        arrayBean.add(aa);
+        //cursor.moveToNext();
+    }
+    cursor.close();
+    setArraylist(arrayBean);
+    // String content=new FileDao().read(mainActivity,"page 1.txt");
+    myAdapter.notifyDataSetChanged();
+
+}
 }
 

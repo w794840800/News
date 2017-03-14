@@ -1,5 +1,7 @@
 package comn.example.administrator.news.net;
 
+import com.bumptech.glide.Glide;
+
 import java.util.concurrent.TimeUnit;
 
 import comn.example.administrator.news.api.InfoService;
@@ -38,6 +40,7 @@ Retrofit retrofit;
     infoService=retrofit.create(InfoService.class);
     }
       public static RetrofitManager getRetrofitManager(){
+
           if (retrofitManager==null){
               retrofitManager=new RetrofitManager();
 

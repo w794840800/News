@@ -59,18 +59,20 @@ daoUtils=new DaoUtils(getActivity(),dateBaseSQLite);
        // dateBaseSQLite.getWritableDatabase();
         BasicPages weixin=new BasicPages(getActivity(),"https://api.tianapi.com/wxnew/?" +
 
-               "key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10","page1",daoUtils);
+               "key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10","page1",daoUtils,"wxnew");
 
         basicPagesArrayList.add(weixin);
         weixin.updateDate();
         /*  BasicPages weixin=new BasicPages(getActivity(),"https://api.tianapi.com/social/?key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10","page1",daoUtils);
               basicPagesArrayList.add(weixin);*/
-        basicPagesArrayList.add(new BasicPages(getActivity(),"https://api.tianapi.com/social/?key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10","page2",daoUtils));
+        BasicPages secondPages=new BasicPages(getActivity(),"https://api.tianapi.com/social/?key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10","page2",daoUtils,"social");
 
+        basicPagesArrayList.add(secondPages);
+secondPages.updateDate();
         basicPagesArrayList.add(new BasicPages(getActivity(),"https://api.tianapi.com/guonei/" +
-                "?key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10","page3",daoUtils));
+                "?key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10","page3",daoUtils,"guonei"));
         basicPagesArrayList.add(new BasicPages(getActivity(),"https://api.tianapi.com/tiyu/" +
-                "?key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10\t","page4",daoUtils));
+                "?key=4e3754ff60bd8b8f9ae918f5b8fd3797&num=10\t","page4",daoUtils,"tiyu"));
         tabTitle.add("微信精选");
         tabTitle.add("社会新闻");
         tabTitle.add("娱乐新闻");
