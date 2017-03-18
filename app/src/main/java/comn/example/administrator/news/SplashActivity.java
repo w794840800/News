@@ -3,12 +3,15 @@ package comn.example.administrator.news;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.ScaleAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,6 +19,7 @@ import java.util.List;
 
 import comn.example.administrator.news.inter.BlueService;
 import comn.example.administrator.news.jean.douban;
+import comn.example.administrator.news.mvp.view.MainActivity;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,71 +35,31 @@ import rx.schedulers.Schedulers;
 
 public class SplashActivity extends AppCompatActivity {
 ImageView imageView;
+    Button skip;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
        // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-
         setContentView(R.layout.activity_splash);
-//new ScaleAnimation()
-        imageView= (ImageView) findViewById(R.id.imageView);
+        initView();
+        //点击跳过进入下一个活动
+        skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
+                finish();
+            }
+        });
+
 
         final ObjectAnimator valueAnimator=ObjectAnimator.ofFloat(imageView,"translationX",
                 0,100,1f);
         valueAnimator.setDuration(2000);
-        OkHttpClient okHttpClient=new OkHttpClient();
                  valueAnimator.start();
-      /*  Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("https://api.douban.com/v2/")
-.addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-               .client(okHttpClient)
-                .build();
-        retrofit.create(BlueService.class).getSearchBooks("小王子", "", 0, 3)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<douban>() {
-                    @Override
-                    public void onCompleted() {
-                       // Toast.makeText()
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-    Toast.makeText(getApplicationContext(),e.getMessage(),Toast.LENGTH_LONG).show();
-                    }
 
-                    @Override
-                    public void onNext(douban douban) {
-          Toast.makeText(getApplicationContext(),""+douban.getBooks().get(0).getAuthor(),Toast.LENGTH_LONG).show();
-                    //    Toast.makeText(getApplicationContext(),"onnext"+,Toast.LENGTH_LONG).show();
-                    }
-                });*/
-     /*   Call<douban >call= retrofit.create(BlueService.class).getSearchBooks
-                ("小王子", "", 0, 3);*/
-        //Observable<douban>observable=Observable.create()
-
-      /*  call.enqueue(new Callback<douban>() {
-            @Override
-            public void onResponse(Call<douban> call, Response<douban> response) {
-
-                Toast.makeText(getApplicationContext(),response.body().getBooks().get(0).getAlt_title()+" ",Toast.LENGTH_SHORT)
-                        .show();
-                Log.d("response size",response.body().getBooks().get(0).getAuthor()+"");
-                valueAnimator.start();
-            }
-
-            @Override
-            public void onFailure(Call<douban> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),t.getMessage()+" ",Toast.LENGTH_LONG)
-                        .show();
-                Log.d("response size",t.getMessage()+" "+" ");
-                valueAnimator.start();
-            }
-        });
-*/
+               //定义动画监听在动画结束后进入新一个页面
 
         valueAnimator.addListener(new Animator.AnimatorListener() {
             @Override
@@ -126,4 +90,11 @@ ImageView imageView;
         });
 
     }
+
+    private void initView() {
+        skip= (Button) findViewById(R.id.button_skip);
+        imageView= (ImageView) findViewById(R.id.imageView);
+
+    }
+
 }

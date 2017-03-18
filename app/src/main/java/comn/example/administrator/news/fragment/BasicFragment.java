@@ -17,7 +17,7 @@ import comn.example.administrator.news.R;
 public abstract class BasicFragment extends Fragment {
   Activity mainActivity;
     View rootView;
-//Fragment Frament;
+
 
 
   @Override

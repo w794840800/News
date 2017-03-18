@@ -12,9 +12,15 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.facebook.drawee.view.DraweeView;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
@@ -36,6 +42,7 @@ import comn.example.administrator.news.jean.weixinjinxuan;
 import comn.example.administrator.news.net.RetrofitManager;
 import comn.example.administrator.news.sp.SharedPreferences;
 import comn.example.administrator.news.webViewActivity;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 import rx.Observer;
 import utils.parseGson;
 import utils.urlConnection;
@@ -226,11 +233,13 @@ insertDate(weixinjinxuan);
 
   public class MyViewHolder extends RecyclerView.ViewHolder {
       TextView textView;
-      SimpleDraweeView draweeView;
+     ImageView imageView;
+      //SimpleDraweeView draweeView;
       public MyViewHolder(View itemView) {
           super(itemView);
           textView = (TextView) itemView.findViewById(R.id.tv_news_detail_title);
-        draweeView= (SimpleDraweeView) itemView.findViewById(R.id.draweeView);
+      //  draweeView= (SimpleDraweeView) itemView.findViewById(R.id.draweeView);
+       imageView= (ImageView) itemView.findViewById(R.id.draweeView);
       }
   }
    public class  MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
@@ -248,11 +257,33 @@ insertDate(weixinjinxuan);
             //    Intent intent=new Intent(mainActivity,webView)
                 webViewActivity.newIntent(mainActivity,
                         arrayBean.get(position).getUrl());
-
             }
         });
+           Log.d("url",""+arrayBean.get(position).getPicUrl());
+
+
+
            holder.textView.setText(arrayBean.get(position).getTitle());
-holder.draweeView.setImageURI(arrayBean.get(position).getPicUrl());
+//holder.draweeView.setImageURI(arrayBean.get(position).getPicUrl());
+           Glide.with(mainActivity)
+                   .load(arrayBean.get(position).getPicUrl())
+           .thumbnail(0.1f)
+                   .crossFade()
+                   .skipMemoryCache(true)
+                   .diskCacheStrategy(DiskCacheStrategy.ALL)
+                   .bitmapTransform(new BlurTransformation(mainActivity))
+                   .listener(new RequestListener<String, GlideDrawable>() {
+                       @Override
+                       public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                           return false;
+                       }
+
+                       @Override
+                       public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                           return false;
+                       }
+                   })
+                   .into(holder.imageView);
        }
 
        @Override
