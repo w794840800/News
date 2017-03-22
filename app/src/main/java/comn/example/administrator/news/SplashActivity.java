@@ -3,7 +3,9 @@ package comn.example.administrator.news;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +53,7 @@ ImageView imageView;
                 finish();
             }
         });
+
 
 
         final ObjectAnimator valueAnimator=ObjectAnimator.ofFloat(imageView,"translationX",
