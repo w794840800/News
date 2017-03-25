@@ -11,6 +11,7 @@
 2. ### 使用CardView作为RecyclerView子项
 3. ### 使用SwipeRefresh 实现下拉刷新
 ![image](https://github.com/w794840800/picc/blob/master/32.jpg)
+### 切换标签
 ![image](https://github.com/w794840800/picc/blob/master/41.jpg)
 
 # 内容详情页
