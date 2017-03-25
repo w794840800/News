@@ -11,4 +11,9 @@
 2. ### 使用CardView作为RecyclerView子项
 3. ### 使用SwipeRefresh 实现下拉刷新
 ![image](https://github.com/w794840800/picc/blob/master/32.jpg)
+![image](https://github.com/w794840800/picc/blob/master/41.jpg)
 
+# 内容详情页
+1. ### 使用webView加载内容
+2. ### 与js交互，过滤过不需要的信息
+！[image](https://github.com/w794840800/picc/blob/master/51.jpg)
