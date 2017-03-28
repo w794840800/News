@@ -10,15 +10,16 @@
     android:id="@+id/imageView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:src="@drawable/splash_horse_newyear"
+android:scaleType="fitXY"
 
      />
     <Button
-        android:paddingTop="10dp"
-        android:layout_marginTop="3dp"
-        android:layout_alignParentEnd="true"
+        android:paddingTop="5dp"
+
+        android:layout_alignParentBottom="true"
         android:background="@drawable/skipbg"
          android:text="跳过"
+        android:layout_alignParentRight="true"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:id="@+id/button_skip" />

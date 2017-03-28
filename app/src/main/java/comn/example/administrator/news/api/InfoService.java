@@ -14,7 +14,9 @@ import rx.Observable;
 public interface InfoService {
   //https://api.tianapi.com/wxnew/?key=APIKEY&num=10
     @GET("{type}/")
-    public Observable<weixinjinxuan>getInfo(@Path("type")String type,@Query("key")String key,@Query("num")String num);
+    public Observable<weixinjinxuan>getInfo
+    (@Path("type")String type,@Query("key")String key,
+     @Query("num")String num,@Query("rand")String rand);
 
 
    // public Call<String>getMovie(@Query("start")String start,@Query("count")String count);

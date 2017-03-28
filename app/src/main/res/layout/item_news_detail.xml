@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="5dp"
-    app:cardCornerRadius="3dp"
-    >
-<LinearLayout
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="120dp"
+    android:layout_margin="10dp"
+
+    android:visibility="visible"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
 
-   <!-- <LinearLayout
+        <!-- <LinearLayout
 
         android:id="@+id/ll_news_detail"
         android:layout_width="wrap_content"
@@ -24,64 +33,77 @@
 -->
 
 
-
-
         <RelativeLayout
-android:layout_weight="1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+
+
+
 
             <TextView
                 android:id="@+id/tv_news_detail_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="100dp"
                 android:maxLines="2"
-                     android:layout_marginRight="100dp"
+                android:ellipsize="end"
                 android:padding="5dp"
-
+                     android:lineSpacingExtra="5dp"
                 android:text="朴槿惠亲信干政dfsdfbdsddvfxdzsZxcvzcvccxzvcxz”"
 
                 android:textSize="18sp" />
 
-            <TextView
-                android:id="@+id/tv_news_detail_author_name"
+            <LinearLayout
+android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@id/tv_news_detail_title"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:text="人民网" />
+         android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentBottom="true">
 
-            <TextView
-                android:id="@+id/tv_news_detail_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/tv_news_detail_author_name"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/tv_news_detail_author_name"
-                android:maxLines="1"
-                android:text="2017-02-09 10:45" />
+                <TextView
+                    android:id="@+id/tv_news_detail_author_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:text="人民网" />
+
+                <TextView
+                    android:id="@+id/tv_news_detail_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:maxLines="1"
+                    android:layout_marginLeft="10dp"
+                    android:text="2017-02-09 10:45" />
+
+
+            </LinearLayout>
+
+
+
             <ImageView
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
                 android:id="@+id/draweeView"
-                android:scaleType="fitCenter"
-                android:layout_alignRight="@id/tv_news_detail_title"
-                android:layout_alignParentRight="true"
                 android:layout_width="100dp"
-
                 android:layout_height="100dp"
+                android:layout_alignParentRight="true"
+
+                android:layout_alignRight="@id/tv_news_detail_title"
 
                 />
+
 
         </RelativeLayout>
 
 
+    </LinearLayout>
 
-
-
-</LinearLayout>
-
-        <!--<android.support.v7.widget.CardView
+    <!--<android.support.v7.widget.CardView
             android:gravity="right"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -90,9 +112,7 @@ android:layout_weight="1"
             app:cardElevation="0dp">-->
 
 
-
-
-           <!-- <com.facebook.drawee.view.SimpleDraweeView
+    <!-- <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/draweeView"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
@@ -103,19 +123,18 @@ android:layout_marginLeft="10dp"
                 fresco:placeholderImage="@drawable/moren"
                 />-->
 
-       <!-- <ImageView
+    <!-- <ImageView
             android:id="@+id/iv_news_detail_pic"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#55ffffff"
             android:src="@mipmap/ic_error" />-->
-<!--
+    <!--
         </android.support.v7.widget.CardView>
 -->
 
-  <!--  </LinearLayout>-->
-
-
+    <!--  </LinearLayout>-->
 
 
 </android.support.v7.widget.CardView>
+</RelativeLayout>

@@ -1,12 +1,15 @@
 package comn.example.administrator.news.pages;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -31,8 +34,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Handler;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+
 
 import comn.example.administrator.news.R;
 import comn.example.administrator.news.db.DaoUtils;
@@ -76,8 +84,10 @@ String type;
        // arrayBean
         daoUtils=daoUtils1;
         tableName=name;
-         Cursor cursor=daoUtils.read("select * from "+tableName);
-        if (cursor!=null) {
+
+          //先从数据库读数据，判断是否为空
+
+      /*  if (cursor!=null) {
             while (cursor.moveToNext()) {
                 weixinjinxuan.NewslistBean bean = new weixinjinxuan.NewslistBean();
                 bean.setCtime(cursor.getString(0));
@@ -87,23 +97,12 @@ String type;
                 bean.setUrl(cursor.getString(4));
                 // Toast.makeText(activity, ""+cursor.getString(5), Toast.LENGTH_SHORT).show();
                 arrayBean.add(bean);
-                //cursor.moveToNext();
-
             }
-        }
-        //dataBaseSQLite=new dateBaseSQLite(mainActivity,name);
-     //   daoUtils=new DaoUtils(mainActivity,dataBaseSQLite);
-       //sqLiteDatabase1=dataBaseSQLite.getWritableDatabase();
+    }
+        */
         url=u;
 
-//        new dateBaseSQLite(mainActivity,name).getWritableDatabase();
-  //new dateBaseSQLite(mainActivity,"first")
-    //      .getWritableDatabase();
-        /*array.add("index1");
 
-        for(int i=0;i<40;i++){
-        array.add("index");*/
-        //}
         mainActivity=activity;
 
 
@@ -132,43 +131,7 @@ String type;
 
           @Override
           public void onNext(weixinjinxuan weixinjinxuan) {
- //  Toast.makeText(mainActivity,weixinjinxuan.toString(),Toast.LENGTH_SHORT).show();
-            /* swipeRefreshLayout.setRefreshing(false);
-              if (weixinjinxuan!=null) {
-                  ArrayList<weixinjinxuan.NewslistBean>linshiArrayList
-                          = (ArrayList<weixinjinxuan.NewslistBean>) weixinjinxuan.getNewslist();
 
-
-
-                  for (weixinjinxuan.NewslistBean a : linshiArrayList) {
-                      if (!(daoUtils.queryTime(a.getTitle(),tableName))){
-
-                          daoUtils.insert("insert into " + tableName + " values(?,?,?,?,?)",
-                                  new String[]{
-                                          a.getCtime(), a.getTitle(),
-                                          a.getDescription(), a.getPicUrl(),
-                                          a.getUrl()});
-                      }
-
-                  }}
-
-              arrayBean.clear();
-              Cursor cursor=daoUtils.read("select *from "+tableName);
-              while (cursor.moveToNext()){
-                  weixinjinxuan.NewslistBean aa=new weixinjinxuan.NewslistBean();
-                  aa.setUrl(cursor.getString(cursor.getColumnIndex("url")));
-                  aa.setPicUrl(cursor.getString(cursor.getColumnIndex("picUrl")));
-                  aa.setDescription(cursor.getString(cursor.getColumnIndex("description")));
-                  aa.setTitle(cursor.getString(cursor.getColumnIndex("title")));
-                  aa.setCtime(cursor.getString(cursor.getColumnIndex("ctime")));
-                  arrayBean.add(aa);
-                  //cursor.moveToNext();
-              }
-              cursor.close();
-              setArraylist(arrayBean);
-              // String content=new FileDao().read(mainActivity,"page 1.txt");
-              myAdapter.notifyDataSetChanged();
-*/
 insertDate(weixinjinxuan);
 
           }
@@ -183,17 +146,42 @@ insertDate(weixinjinxuan);
     public View initView() {
         View view=View.inflate(mainActivity, R.layout.basic_recycleview,null);
         basic_recycler= (RecyclerView)view.findViewById(R.id.recycler);
+        basic_recycler.setItemAnimator(new DefaultItemAnimator());
         swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        Cursor cursor=daoUtils.read("select * from "+tableName);
+        if (cursor.getCount()!=0) {
 
+            arrayBean = daoUtils.getDateFromCursor(cursor);
+        }
         //设置一进入就刷新
-       // swipeRefreshLayout.measure(0,0);
-        swipeRefreshLayout.setRefreshing(true);
+       //
+       else {
+          swipeRefreshLayout.post(new Runnable() {
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void run() {
+                    swipeRefreshLayout.setRefreshing(true);
+                    updateDate();
+                }
+            });
+            //swipeRefreshLayout.measure(0,0);
+          //swipeRefreshLayout.setRefreshing(true);
+        }
+        swipeRefreshLayout.
+                setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-         new Thread(new Runnable() {
+
+       new Handler().post(new Runnable() {
+           @Override
+           public void run() {
+              // Toast.makeText(mainActivity,"cursor 为null",Toast.LENGTH_SHORT).show();
+               updateDate();
+
+           }
+       });
+        /* new Thread(new Runnable() {
              @Override
              public void run() {
                  try {
@@ -202,14 +190,9 @@ insertDate(weixinjinxuan);
                      e.printStackTrace();
                  }
              }
-         }).start();
-                mainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateDate();
+         }).start();*/
 
-                    }
-                });
+
             }
         });
 
@@ -222,6 +205,12 @@ insertDate(weixinjinxuan);
         basic_recycler.setAdapter(myAdapter);
 //myAsynTask=new MyAsynTask();
         return view;
+
+
+       // List
+      //  Set
+     //   Map
+      //  SortedSet
     }
     public void setArraylist(ArrayList<weixinjinxuan.NewslistBean>a){
  // Toast.makeText(mainActivity,a.get(0).getTitle(),Toast.LENGTH_SHORT).show();
@@ -229,17 +218,24 @@ insertDate(weixinjinxuan);
         arrayBean=a;
         myAdapter.notifyDataSetChanged();
 
+
     }
 
   public class MyViewHolder extends RecyclerView.ViewHolder {
-      TextView textView;
+      TextView textView,tv_news_detail_author_name,tv_news_detail_date;
      ImageView imageView;
       //SimpleDraweeView draweeView;
       public MyViewHolder(View itemView) {
+        //  super();
           super(itemView);
           textView = (TextView) itemView.findViewById(R.id.tv_news_detail_title);
-      //  draweeView= (SimpleDraweeView) itemView.findViewById(R.id.draweeView);
+          tv_news_detail_author_name= (TextView) itemView.findViewById(R.id.tv_news_detail_author_name);
+
+          //  draweeView= (SimpleDraweeView) itemView.findViewById(R.id.draweeView);
        imageView= (ImageView) itemView.findViewById(R.id.draweeView);
+          tv_news_detail_date= (TextView) itemView.findViewById(R.id.tv_news_detail_date);
+
+
       }
   }
    public class  MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
@@ -262,16 +258,19 @@ insertDate(weixinjinxuan);
            Log.d("url",""+arrayBean.get(position).getPicUrl());
 
 
-
+holder.tv_news_detail_author_name.setText(arrayBean.get(position).getDescription());
            holder.textView.setText(arrayBean.get(position).getTitle());
+           holder.tv_news_detail_date.setText(arrayBean.get(position).getCtime());
 //holder.draweeView.setImageURI(arrayBean.get(position).getPicUrl());
            Glide.with(mainActivity)
                    .load(arrayBean.get(position).getPicUrl())
            .thumbnail(0.1f)
                    .crossFade()
-                   .skipMemoryCache(true)
+                   .placeholder(R.drawable.more)
                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                   .bitmapTransform(new BlurTransformation(mainActivity))
+
+                   //毛玻璃效果
+                   //  .bitmapTransform(new BlurTransformation(mainActivity))
                    .listener(new RequestListener<String, GlideDrawable>() {
                        @Override
                        public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -391,7 +390,8 @@ insertDate(weixin);
 
         }
     }
-public void insertDate(weixinjinxuan wei){
+
+        public void insertDate(weixinjinxuan wei){
 
     swipeRefreshLayout.setRefreshing(false);
 
@@ -426,6 +426,7 @@ public void insertDate(weixinjinxuan wei){
         //cursor.moveToNext();
     }
     cursor.close();
+            Collections.reverse(arrayBean);
     setArraylist(arrayBean);
     // String content=new FileDao().read(mainActivity,"page 1.txt");
     myAdapter.notifyDataSetChanged();

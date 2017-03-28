@@ -6,5 +6,5 @@ package comn.example.administrator.news.mvp.view;
 
 public interface IUserView {
 public void updateDate(int position);
-
+public void addTabItem();
 }

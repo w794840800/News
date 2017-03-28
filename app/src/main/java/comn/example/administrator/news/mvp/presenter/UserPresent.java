@@ -21,7 +21,10 @@ public void updateDate(int position){
     iUserView.updateDate(position);
 
 }
+public void addTabItem(){
+    iUserView.addTabItem();
 
+}
 
 
 

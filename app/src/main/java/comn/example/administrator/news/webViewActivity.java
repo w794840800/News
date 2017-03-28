@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.ValueCallback;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -19,6 +20,8 @@ import android.widget.Toast;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.DraweeView;
+
+import comn.example.administrator.news.net.ConnectionUtils;
 
 public class webViewActivity extends AppCompatActivity {
 WebView webView;
@@ -47,7 +50,13 @@ progress= (ProgressBar) findViewById(R.id.progress);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(url);
         //设置 缓存模式
-        webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+
+
+          webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+
+
+       // webView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+
 // 开启 DOM storage API 功能
         webView.getSettings().setDomStorageEnabled(true);
        // webSetting.setDomStorageEnabled(true);
@@ -64,8 +73,13 @@ progress= (ProgressBar) findViewById(R.id.progress);
 
                  String javascript="javascript:function hide(){document.getElementsByClassName('header')[0].remove();document.getElementsByClassName('share-wrapper')[0].remove();document.getElementsByClassName('related-wrapper')[0].remove();document.getElementsByClassName('comment-wrapper')[0].remove();document.getElementsByClassName(\"select-wrapper\")[0].remove();}";
                  view.loadUrl(javascript);
-                view.loadUrl("javascript:hide();");
+             view.loadUrl("javascript:hide();");
+/*view.evaluateJavascript("javascript:hide();", new ValueCallback<String>() {
+    @Override
+    public void onReceiveValue(String value) {
 
+    }
+});*/
                 progress.setVisibility(View.INVISIBLE);
                 webView.setVisibility(View.VISIBLE);
             }

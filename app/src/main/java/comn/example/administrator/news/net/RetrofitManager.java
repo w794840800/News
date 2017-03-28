@@ -55,7 +55,7 @@ Retrofit retrofit;
 
 public void get(String type, Observer<weixinjinxuan> observer){
 
-getInfoService().getInfo(type,"4e3754ff60bd8b8f9ae918f5b8fd3797","10")
+getInfoService().getInfo(type,"4e3754ff60bd8b8f9ae918f5b8fd3797","5","1")
 .observeOn(AndroidSchedulers.mainThread())
 .subscribeOn(Schedulers.io())
 .subscribe(observer);

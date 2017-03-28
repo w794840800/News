@@ -5,13 +5,16 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -50,9 +53,15 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getContentResolver()
        // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_splash);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+         setContentView(R.layout.activity_splash);
         initView();
+        AlphaAnimation alphaAnimation=new AlphaAnimation(0,1);
+       // ScaleAnimation scaleAnimation=new ScaleAnimation(0,1,0,1, Animation.RELATIVE_TO_SELF)
+        ScaleAnimation scaleAnimation=new ScaleAnimation(0,1,0,1);
         //点击跳过进入下一个活动
         skip.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +74,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         final ObjectAnimator valueAnimator=ObjectAnimator.ofFloat(imageView,"translationX",
-                0,100,1f);
+                0,100,1);
         valueAnimator.setDuration(2000);
                  valueAnimator.start();
 
@@ -147,7 +156,11 @@ else {
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        Glide.with(getApplicationContext()).load(s).into(imageView);
+                        Glide.with(getApplicationContext())
+                                .load(s)
+                                .thumbnail(0.5f)
+                                .into(imageView);
+
 
     /*  if (url!=null) {
            Glide.with(getApplicationContext()).load(url).into(imageView);
