@@ -54,8 +54,11 @@ String TABLE_NAME;
                 +" (ctime varchar(100) ,title,description" +
                 ",picUrl,url)";
         db.execSQL(sql4);
-
-        Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
+        String sql5= "create table "
+                + "qb"
+                +" (Picurl varchar(100) ,title,url)";
+        db.execSQL(sql5);
+        //Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
 
     }
 

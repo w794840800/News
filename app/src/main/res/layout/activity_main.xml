@@ -5,11 +5,88 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
     tools:context="comn.example.administrator.news.MainActivity">
-<FrameLayout
-    android:id="@+id/main_fragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
 
+<LinearLayout
+   android:id="@+id/radioGroup_layout"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_alignParentBottom="true"
+    >
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="match_parent">
+        <RadioButton
+
+            android:id="@+id/rb_news"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:text="新闻"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:button="@null"
+
+            android:drawableTop="@drawable/news_selected"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_qiubai"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/qb_selected"
+            android:gravity="center|top"
+            android:text="糗百"
+            android:textColor="@drawable/qb_textcolor"
+            android:textSize="15sp" />
+
+        <RadioButton
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/qb_selected"
+            android:gravity="center|top"
+            android:text="糗百"
+            android:textColor="@drawable/qb_textcolor"
+            android:textSize="15sp" />
+        <RadioButton
+
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/qb_selected"
+            android:gravity="center|top"
+            android:text="糗百"
+            android:textColor="@drawable/qb_textcolor"
+            android:textSize="15sp" />
+
+    </RadioGroup>
+
+</LinearLayout>
+
+    <FrameLayout
+        android:layout_above="@id/radioGroup_layout"
+        android:id="@+id/main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </RelativeLayout>

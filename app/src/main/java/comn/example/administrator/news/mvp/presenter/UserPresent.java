@@ -12,10 +12,7 @@ public class UserPresent {
         this.iUserView=iUserView;
     }
     public void showRefresh(){
-      //  iUserView.showRefresh();
-    }
-    public void cancelRefresh(){
-        //iUserView.cancelRefresh();
+
     }
 public void updateDate(int position){
     iUserView.updateDate(position);

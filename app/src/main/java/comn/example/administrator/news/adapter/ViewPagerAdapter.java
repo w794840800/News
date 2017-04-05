@@ -34,6 +34,10 @@ public class ViewPagerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         BasicPages basicPages=basicPagesArrayList.get(position);
         View recyclerView=  basicPages.initView();
+        ViewGroup viewGroup= (ViewGroup) recyclerView.getParent();
+       if (viewGroup!=null){
+           viewGroup.removeAllViews();
+       }
         container.addView(recyclerView);
         return recyclerView;
     }

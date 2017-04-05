@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <comn.example.administrator.news.view.PhotoViewPager
+        android:id="@+id/image_viewPager"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+    </comn.example.administrator.news.view.PhotoViewPager>
+<!--<uk.co.senab.photoview.PhotoView
+
+    android:id="@+id/image_review"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />-->
+</LinearLayout>
