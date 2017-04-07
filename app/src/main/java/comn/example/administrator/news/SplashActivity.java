@@ -3,10 +3,12 @@ package comn.example.administrator.news;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,11 +52,15 @@ public class SplashActivity extends AppCompatActivity {
 
     ImageView imageView;
     Button skip;
+    LocalBroadcastManager localBroadcastManager;
+    IntentFilter intentFilter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //getContentResolver()
        // this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        localBroadcastManager=LocalBroadcastManager.getInstance(this);
+         intentFilter=new IntentFilter("");
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
          setContentView(R.layout.activity_splash);

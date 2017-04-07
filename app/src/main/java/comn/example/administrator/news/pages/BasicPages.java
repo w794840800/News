@@ -114,10 +114,12 @@ public class BasicPages implements SwipeRefreshLayout.OnRefreshListener{
     }
 
     public void updateDate() {
+
         //进行网络请求前给当前Head下标设为第一个
+
         currentIndex = 0;
         //進行網絡請求
-        RetrofitManager.getRetrofitManager().get(type, new Observer<weixinjinxuan>() {
+        RetrofitManager.getRetrofitManager("https://api.tianapi.com/").get(type, new Observer<weixinjinxuan>() {
             @Override
             public void onCompleted() {
             }
@@ -129,6 +131,13 @@ public class BasicPages implements SwipeRefreshLayout.OnRefreshListener{
             @Override
             public void onNext(weixinjinxuan weixinjinxuan) {
                 insertDate(weixinjinxuan);
+             mainActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                      //  Toast.makeText(mainActivity,"refresh",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
             }
         });
         myAdapter.notifyDataSetChanged();

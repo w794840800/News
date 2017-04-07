@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,6 +27,10 @@ import android.widget.Toast;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.DraweeView;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -285,9 +290,24 @@ if ((!(TextUtils.isEmpty(url1)))) {
 
 
     urlList.add(url1);
+    HttpURLConnection httpURLConnection;
+    try {
+        URL url=new URL("");
+      httpURLConnection= (HttpURLConnection) url.openConnection();
+
+        // httpURLConnection.connect();
+        //httpURLConnection.getInputStream();
+
+    } catch (MalformedURLException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
 
 }
 }
+
+
     }
 
 }

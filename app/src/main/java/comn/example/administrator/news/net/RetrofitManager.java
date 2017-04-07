@@ -23,26 +23,26 @@ OkHttpClient okHttpClient;
 Retrofit retrofit;
     public static RetrofitManager retrofitManager;
     InfoService infoService;
-    public RetrofitManager () {
+    public RetrofitManager (String baseUrl) {
     okHttpClient=new OkHttpClient.Builder()
             .connectTimeout(5000, TimeUnit.SECONDS)
             .readTimeout(5000,TimeUnit.SECONDS)
             .writeTimeout(5000,TimeUnit.SECONDS)
             .build();
     retrofit=new Retrofit.Builder()
-            .baseUrl("https://api.tianapi.com/")
+            .baseUrl(baseUrl)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    ;
+            .build();
 
     infoService=retrofit.create(InfoService.class);
+
     }
-      public static RetrofitManager getRetrofitManager(){
+      public static RetrofitManager getRetrofitManager(String baseUrl){
 
           if (retrofitManager==null){
-              retrofitManager=new RetrofitManager();
+              retrofitManager=new RetrofitManager(baseUrl);
 
           }
           return retrofitManager;

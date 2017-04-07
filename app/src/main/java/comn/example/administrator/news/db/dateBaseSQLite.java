@@ -45,10 +45,6 @@ String TABLE_NAME;
         //Observable<String>.create(Observable<String>.just())
 //Observable.create(new Observable.OnSubscribe<Object>() {
 //Observable.create(new Observable
-
-
-
-
         String sql4= "create table "
                 + "page4"
                 +" (ctime varchar(100) ,title,description" +
@@ -59,7 +55,10 @@ String TABLE_NAME;
                 +" (Picurl varchar(100) ,title,url)";
         db.execSQL(sql5);
         //Toast.makeText(context,"success",Toast.LENGTH_SHORT).show();
-
+        String sql6= "create table "
+                + "zhihu"
+                +" (images varchar(100) ,title,id)";
+        db.execSQL(sql6);
     }
 
     @Override

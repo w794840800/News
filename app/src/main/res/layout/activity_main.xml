@@ -52,7 +52,7 @@
             android:textSize="15sp" />
 
         <RadioButton
-
+android:id="@+id/zhihu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
@@ -62,7 +62,7 @@
             android:drawablePadding="5dp"
             android:drawableTop="@drawable/qb_selected"
             android:gravity="center|top"
-            android:text="糗百"
+            android:text="知乎"
             android:textColor="@drawable/qb_textcolor"
             android:textSize="15sp" />
         <RadioButton

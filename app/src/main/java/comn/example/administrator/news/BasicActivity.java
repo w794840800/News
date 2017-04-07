@@ -35,8 +35,8 @@ Handler handler=new Handler(){
 
        }
         fragmentManager.beginTransaction().
-                add(R.id.main_fragment,basicFragment)
-                .addToBackStack(null)
+                add(R.id.main_fragment,basicFragment,"mainFragment")
+
                 .commit();
 
 
