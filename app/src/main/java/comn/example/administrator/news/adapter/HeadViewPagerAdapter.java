@@ -5,14 +5,13 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 import comn.example.administrator.news.R;
-import comn.example.administrator.news.jean.weixinjinxuan;
+
 import comn.example.administrator.news.webViewActivity;
 
 /**
@@ -23,13 +22,13 @@ public class HeadViewPagerAdapter extends PagerAdapter {
 
     int[] img= new int[]{R.drawable.splash_horse_newyear,R.drawable.more,R.drawable.moren};
     Context context;
-    ArrayList<weixinjinxuan.NewslistBean>headList;
-    public HeadViewPagerAdapter(Context context1, ArrayList<weixinjinxuan.NewslistBean>headList1){
+    ArrayList<comn.example.administrator.news.jean.weixinjinxuan.NewslistBean>headList;
+    public HeadViewPagerAdapter(Context context1, ArrayList<comn.example.administrator.news.jean.weixinjinxuan.NewslistBean>headList1){
         context=context1;
         headList=headList1;
     }
 
-    public void setArrayList(ArrayList<weixinjinxuan.NewslistBean>arrayList1){
+    public void setArrayList(ArrayList<comn.example.administrator.news.jean.weixinjinxuan.NewslistBean>arrayList1){
     headList=arrayList1;
        // Toast.makeText(context,"headList"+headList.size(),Toast.LENGTH_SHORT).show();
     }

@@ -1,6 +1,5 @@
 package comn.example.administrator.news.fragment;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,18 +20,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import comn.example.administrator.news.R;
 import comn.example.administrator.news.adapter.qiubaiRecyclerAdapter;
 import comn.example.administrator.news.db.DaoUtils;
 import comn.example.administrator.news.db.dateBaseSQLite;
 import comn.example.administrator.news.jean.qiushibaike;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by Administrator on 2017/3/31.

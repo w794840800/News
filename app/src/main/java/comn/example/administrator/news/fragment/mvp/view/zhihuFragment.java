@@ -6,11 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +42,7 @@ public class zhihuFragment extends Fragment implements IUserView{
         recyclerView= (RecyclerView) view.findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         swipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
-             ipresent=new IPresenter(this,daoUtils);
+             ipresent=new IPresenter(this,daoUtils,getActivity());
               arrayList=new ArrayList<>();
         initDate();
      //   return super.onCreateView(inflater, container, savedInstanceState);}
@@ -62,7 +60,7 @@ zhihuRecyclerAdapter=new zhihuRecyclerAdapter(getActivity(),arrayList);
             @Override
             public void onRefresh() {
                 // Toast.makeText(mainActivity,"refresh",Toast.LENGTH_SHORT).show();
-                ipresent.parseJson("latest");
+                ipresent.parseJson("20131119");
                 arrayList.clear();
                arrayList=ipresent.getDateFromDB(daoUtils);
                 zhihuRecyclerAdapter.setArrayList(arrayList);
@@ -91,8 +89,8 @@ zhihuRecyclerAdapter=new zhihuRecyclerAdapter(getActivity(),arrayList);
                 }
             });
           //  swipeRefreshLayout.setRefreshing(true);
-            Toast.makeText(getActivity(), "refe", Toast.LENGTH_SHORT).show();
-            ipresent.parseJson("latest");
+          //  Toast.makeText(getActivity(), "refe", Toast.LENGTH_SHORT).show();
+            ipresent.parseJson("20131119");
             //]ipresent.parseJson("latest");
             arrayList.clear();
             arrayList=ipresent.getDateFromDB(daoUtils);

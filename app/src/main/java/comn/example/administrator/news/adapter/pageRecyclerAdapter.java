@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -22,10 +21,7 @@ import java.util.TimerTask;
 
 import comn.example.administrator.news.R;
 import comn.example.administrator.news.jean.weixinjinxuan;
-import comn.example.administrator.news.pages.BasicPages;
 import comn.example.administrator.news.webViewActivity;
-
-import static comn.example.administrator.news.R.id.indicator;
 
 /**
  * Created by Administrator on 2017/4/5.

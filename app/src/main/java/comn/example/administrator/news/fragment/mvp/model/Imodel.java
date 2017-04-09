@@ -1,18 +1,18 @@
 package comn.example.administrator.news.fragment.mvp.model;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import comn.example.administrator.news.db.DaoUtils;
 import comn.example.administrator.news.jean.zhihu;
 import comn.example.administrator.news.net.RetrofitManager;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
@@ -20,17 +20,20 @@ import rx.schedulers.Schedulers;
  */
 
 public class Imodel {
-    public Observable<zhihu> getJson(String id){
-       return RetrofitManager.getRetrofitManager("http://news-at.zhihu.com/api/4/news/").getInfoService()
+    Context context;
+    public Observable<zhihu> getJson(Context context1,String id){
+        context=context1;
+       return RetrofitManager.getRetrofitManager(context,"http://news-at.zhihu.com/api/4/news/before/").getInfoService()
                 .getZhihuJson(id);
     }
     public ArrayList<zhihu.StoriesBean> saveJson(Observable<zhihu>s, final DaoUtils daoUtils){
 final ArrayList<zhihu.StoriesBean>list=new ArrayList<>();
         s.subscribeOn(Schedulers.io())
+ .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<zhihu>() {
                     @Override
                     public void onCompleted() {
-
+                        Toast.makeText(context,"zhiFinisg()",Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

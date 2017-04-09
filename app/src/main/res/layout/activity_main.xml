@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
-            android:checked="true"
+
             android:text="新闻"
             android:textSize="15sp"
             android:gravity="center"
@@ -76,7 +76,7 @@ android:id="@+id/zhihu"
             android:drawablePadding="5dp"
             android:drawableTop="@drawable/qb_selected"
             android:gravity="center|top"
-            android:text="糗百"
+            android:text="我的"
             android:textColor="@drawable/qb_textcolor"
             android:textSize="15sp" />
 

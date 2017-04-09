@@ -183,7 +183,7 @@ progress= (ProgressBar) findViewById(R.id.progress);
 
         webView.loadUrl(url);
         //设置 缓存模式
-        webView.addJavascriptInterface(new MyJavascriptInteraface(getApplicationContext()),"imageListener");
+    //    webView.addJavascriptInterface(new MyJavascriptInteraface(getApplicationContext()),"imageListener");
 
 
           webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
@@ -205,7 +205,9 @@ progress= (ProgressBar) findViewById(R.id.progress);
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
 
-                 String javascript="javascript:function hide(){" +
+                //js代码
+
+            /*     String javascript="javascript:function hide(){" +
                          "document.getElementsByClassName('header')[0].r" +
                          "emove();document.getElementsByClassName" +
                          "('share-wrapper')[0].remove();" +
@@ -233,7 +235,7 @@ progress= (ProgressBar) findViewById(R.id.progress);
 
                         + "        window.imageListener.openImage(this.src);  "
                         + "    }  " + "}" + "})()");
-
+*/
 /*view.evaluateJavascript("javascript:hide();", new ValueCallback<String>() {
     @Override
     public void onReceiveValue(String value) {

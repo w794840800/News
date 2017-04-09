@@ -1,11 +1,7 @@
 package comn.example.administrator.news.pages;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -15,22 +11,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
-import com.facebook.drawee.view.DraweeView;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -43,24 +32,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-import cn.sharesdk.framework.ShareSDK;
-import cn.sharesdk.onekeyshare.OnekeyShare;
 import comn.example.administrator.news.R;
 
 import comn.example.administrator.news.adapter.HeadViewPagerAdapter;
-import comn.example.administrator.news.adapter.ViewPagerAdapter;
 import comn.example.administrator.news.adapter.pageRecyclerAdapter;
 import comn.example.administrator.news.db.DaoUtils;
-import comn.example.administrator.news.db.dateBaseSQLite;
 import comn.example.administrator.news.file.FileDao;
 import comn.example.administrator.news.jean.weixinjinxuan;
 import comn.example.administrator.news.net.RetrofitManager;
 import comn.example.administrator.news.sp.SharedPreferences;
 import comn.example.administrator.news.webViewActivity;
-import jp.wasabeef.glide.transformations.BlurTransformation;
 import rx.Observer;
-import utils.parseGson;
-import utils.urlConnection;
 
 /**
  * Created by Administrator on 2017/2/22.
@@ -119,7 +101,7 @@ public class BasicPages implements SwipeRefreshLayout.OnRefreshListener{
 
         currentIndex = 0;
         //進行網絡請求
-        RetrofitManager.getRetrofitManager("https://api.tianapi.com/").get(type, new Observer<weixinjinxuan>() {
+        RetrofitManager.getRetrofitManager(mainActivity,"https://api.tianapi.com/").get(type, new Observer<weixinjinxuan>() {
             @Override
             public void onCompleted() {
             }

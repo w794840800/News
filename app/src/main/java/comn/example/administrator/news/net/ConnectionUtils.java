@@ -13,12 +13,10 @@ public class ConnectionUtils {
 public static boolean isNetWork(Context context){
     ConnectivityManager connectivityManager= (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
     NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
-    if (networkInfo.isAvailable()){
-        return true;
+    if (networkInfo!=null){
 
+        return networkInfo.isAvailable();
     }
-
-
     return false;
 
 }

@@ -2,7 +2,6 @@ package comn.example.administrator.news.api;
 
 import comn.example.administrator.news.jean.weixinjinxuan;
 import comn.example.administrator.news.jean.zhihu;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -20,7 +19,7 @@ public interface InfoService {
      @Query("num")String num,@Query("rand")String rand);
 //http://daily.zhihu.com/story/4772126"
   //http://news-at.zhihu.com/api/4/news/3892357
-@GET("{id}")
-  public Observable<zhihu>getZhihuJson(@Path("id")String id);
+@GET("{date}")
+  public Observable<zhihu>getZhihuJson(@Path("date")String date);
    // public Call<String>getMovie(@Query("start")String start,@Query("count")String count);
 }

@@ -3,7 +3,7 @@
 
 
     <item  android:drawable="@drawable/ic_action_news_red" android:state_checked="true"/>
-    <item android:drawable="@drawable/ic_action_news_white" android:state_checked="false"/>
+    <item android:drawable="@drawable/ic_action_news_white3" android:state_checked="false"/>
 
 
 

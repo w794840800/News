@@ -1,19 +1,10 @@
 package comn.example.administrator.news.fragment;
 
-import android.app.usage.NetworkStatsManager;
-import android.content.Context;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -21,13 +12,10 @@ import comn.example.administrator.news.R;
 import comn.example.administrator.news.adapter.ViewPagerAdapter;
 import comn.example.administrator.news.db.DaoUtils;
 import comn.example.administrator.news.db.dateBaseSQLite;
-import comn.example.administrator.news.jean.weixinjinxuan;
 import comn.example.administrator.news.mvp.presenter.UserPresent;
-import comn.example.administrator.news.fragment.BasicFragment;
 import comn.example.administrator.news.mvp.view.IUserView;
 import comn.example.administrator.news.pages.BasicPages;
 
-import comn.example.administrator.news.sp.SharedPreferences;
 import comn.example.administrator.news.view.NoScrollViewPager;
 
 /**

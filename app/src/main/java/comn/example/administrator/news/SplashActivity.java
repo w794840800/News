@@ -4,41 +4,24 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.os.Environment;
-import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.io.IOException;
-import java.util.List;
 
-import comn.example.administrator.news.inter.BlueService;
-import comn.example.administrator.news.jean.douban;
 import comn.example.administrator.news.mvp.view.MainActivity;
-import comn.example.administrator.news.sp.SharedPreferences;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -80,7 +63,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
         final ObjectAnimator valueAnimator=ObjectAnimator.ofFloat(imageView,"translationX",
-                0,100,1);
+                0,100,0);
         valueAnimator.setDuration(2000);
                  valueAnimator.start();
 

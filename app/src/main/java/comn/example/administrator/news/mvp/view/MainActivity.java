@@ -1,31 +1,23 @@
 package comn.example.administrator.news.mvp.view;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.util.DiffUtil;
-import android.view.View;
 import android.view.Window;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import comn.example.administrator.news.BasicActivity;
 import comn.example.administrator.news.R;
-import comn.example.administrator.news.fragment.BasicFragment;
 import comn.example.administrator.news.fragment.mainFragment;
+import comn.example.administrator.news.fragment.mvp.view.ZhihuhuFragment;
 import comn.example.administrator.news.fragment.mvp.view.zhihuFragment;
 import comn.example.administrator.news.fragment.qiubaiFragment;
-import comn.example.administrator.news.jean.qiushibaike;
 
 public class MainActivity extends AppCompatActivity {
 RadioGroup radioGroup;
@@ -47,9 +39,16 @@ Drawable news_white,news_red;
         //DiffUtil.DiffResult diffResult=DiffUtil.calculateDiff(new MyDifficult())
    radioGroup= (RadioGroup) findViewById(R.id.radioGroup);
         rb_news= (RadioButton) findViewById(R.id.rb_news);
-  mainFragment=new mainFragment();
+        rb_news.post(new Runnable() {
+            @Override
+            public void run() {
+                rb_news.performClick();
+            }
+        });
+
+ /* mainFragment=new mainFragment();
         getFragmentManager().beginTransaction().add(R.id.main_fragment,mainFragment)
-                .commit();
+                .commit();*/
         /*getFragmentManager().beginTransaction().add(R.id.main_fragment,mainFragment)
         ;
         fragmentArrayList.add(mainFragment);
@@ -80,21 +79,20 @@ Drawable news_white,news_red;
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                // RadioButton radioButton= (RadioButton) findViewById(group.getCheckedRadioButtonId());
-                FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
+                FragmentTransaction fragmentTransaction=
+                        getFragmentManager().beginTransaction();
 
                 switch (checkedId){
-/*    case R.id*/
-
-                  case R.id.rb_qiubai:
+                     case R.id.rb_qiubai:
                       hideAllFragment(fragmentTransaction);
                    //   rb_news.setChecked(!rb_news.isChecked());
-                     rb_news.setChecked(false);
-                      rb_qiubai.setChecked(true);
-
+                   /*  rb_news.setChecked(false);
+                      rb_qiubai.setChecked(true);*/
                  if (qiubaiFragment==null){
                      qiubaiFragment=new qiubaiFragment();
                  fragmentTransaction.add(R.id.main_fragment,qiubaiFragment)
-                         .addToBackStack(null);
+                        // .addToBackStack(null)
+                     ;
                  }
                  else {
                      fragmentTransaction.show(qiubaiFragment);
@@ -107,26 +105,17 @@ Drawable news_white,news_red;
 
                       if (zhihuFragment==null){
 
-                          zhihuFragment=new zhihuFragment();
+                          zhihuFragment=new ZhihuhuFragment();
                           fragmentTransaction.add(R.id.main_fragment,zhihuFragment)
-                                  .addToBackStack(null);
+                                 // .addToBackStack(null)
+                          ;
                       }
                       else {
                           fragmentTransaction.show(zhihuFragment);
 
                       }
-                      /*
 
-                      zhihuFragment zhihuFragment;
-
-                      zhihuFragment=new zhihuFragment();
-
-
-                      getFragmentManager().beginTransaction().
-                              replace(R.id.main_fragment,zhihuFragment)
-                              //.addToBackStack(null)
-                              .commit();*/
-                      break;
+                     break;
                   case R.id.rb_news:
 
                       hideAllFragment(fragmentTransaction);
@@ -134,7 +123,8 @@ Drawable news_white,news_red;
                        if (mainFragment==null){
                            mainFragment=new mainFragment();
                            fragmentTransaction.add(R.id.main_fragment,mainFragment)
-                           .addToBackStack(null);
+                           //.addToBackStack(null)
+                           ;
                        }
                        else {
                             fragmentTransaction.show(mainFragment);

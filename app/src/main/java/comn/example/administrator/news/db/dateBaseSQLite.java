@@ -59,6 +59,11 @@ String TABLE_NAME;
                 + "zhihu"
                 +" (images varchar(100) ,title,id)";
         db.execSQL(sql6);
+        String sql7= "create table "
+                + "zhihuhu"
+                +" (images varchar(100) ,title,id)";
+        db.execSQL(sql7);
+
     }
 
     @Override
