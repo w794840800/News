@@ -58,7 +58,7 @@ public class zhihuRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        Toast.makeText(context,"instance",Toast.LENGTH_SHORT).show();
+       // Toast.makeText(context,"instance",Toast.LENGTH_SHORT).show();
 
         if (holder instanceof zhihuViewHolder){
         ((zhihuViewHolder)holder).textView.setText(storiesBeanArrayList.get(position).getTitle());

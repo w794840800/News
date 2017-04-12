@@ -9,6 +9,6 @@ public class API {
 public static final String
         ZHIHU_URL="http://news.at.zhihu.com/api/4/news/before/";
     public static final String
-            ZHIHU_CONTENT="http://daily.zhihu.com/story/";
+            ZHIHU_CONTENT="http://news-at.zhihu.com/api/4/news/";
 
 }

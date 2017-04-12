@@ -50,7 +50,6 @@ import rx.Observer;
 
 public class BasicPages implements SwipeRefreshLayout.OnRefreshListener{
     ViewPager viewPager_header;
-    MyTimerTask myTimerTask;
     pageRecyclerAdapter pageRecyclerAdapter;
 
     Handler handler = new Handler() {
@@ -69,10 +68,6 @@ public class BasicPages implements SwipeRefreshLayout.OnRefreshListener{
     int currentIndex;
     String url = "";
     Timer timer;
-    FrameLayout frameLayout;
-    LinearLayout indicator;
-    ImageView imageView1, imageView2, imageView3, imageView4;
-    MyAdapter myAdapter;
     ArrayList<ImageView> imageViews = new ArrayList<>();
     DaoUtils daoUtils;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -122,7 +117,7 @@ public class BasicPages implements SwipeRefreshLayout.OnRefreshListener{
                 });
             }
         });
-        myAdapter.notifyDataSetChanged();
+        //myAdapter.notifyDataSetChanged();
     }
 
     public View initView() {
@@ -162,153 +157,18 @@ public class BasicPages implements SwipeRefreshLayout.OnRefreshListener{
         }
         swipeRefreshLayout.setOnRefreshListener(this);
         basic_recycler.setLayoutManager(new LinearLayoutManager(mainActivity));
-        myAdapter = new MyAdapter();
+        //myAdapter = new MyAdapter();
 
      //
         basic_recycler.setAdapter(pageRecyclerAdapter);
         return view;
     }
 
-  /*  public void setArraylist(ArrayList<weixinjinxuan.NewslistBean> a) {
-        arrayBean = a;
-        headList.clear();
-        for (int i = 0; i < 3; i++) {
-            headList.add(arrayBean.get(i));
-
-        }
-        myAdapter.notifyDataSetChanged();
-        headViewPagerAdapter.setArrayList(headList);
-        headViewPagerAdapter.notifyDataSetChanged();
-
-    }*/
-
     @Override
     public void onRefresh() {
         updateDate();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        ViewPager viewPager_head;
-        TextView textView, tv_news_detail_author_name, tv_news_detail_date;
-        ImageView imageView;
-        public MyViewHolder(View itemView, int typeView) {
-            super(itemView);
-            if (typeView == 0) {
-                viewPager_head = (ViewPager)
-                        itemView.findViewById(R.id.viewPager_header);
-                viewPager_header = viewPager_head;
-                myTimerTask = null;
-                myTimerTask = new MyTimerTask(currentIndex, "name1");
-                timer.schedule(myTimerTask, 5000, 5000);
-            }
-            else {
-                textView = (TextView) itemView.findViewById(R.id.tv_news_detail_title);
-                tv_news_detail_author_name = (TextView) itemView.
-                        findViewById(R.id.tv_news_detail_author_name);
-                imageView = (ImageView) itemView.findViewById(R.id.draweeView);
-                tv_news_detail_date = (TextView) itemView.findViewById(R.id.tv_news_detail_date);
-
-            }
-        }
-    }
-
-    public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
-        @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            if (viewType == 0) {
-                frameLayout = (FrameLayout) View.inflate(mainActivity, R.layout.head_layout, null);
-                indicator = (LinearLayout) frameLayout.findViewById(R.id.indicator);
-                imageView1 = (ImageView) indicator.findViewById(R.id.image1);
-                imageView2 = (ImageView) indicator.findViewById(R.id.image2);
-                imageView3 = (ImageView) indicator.findViewById(R.id.image3);
-                imageViews.add(imageView1);
-                imageViews.add(imageView2);
-                imageViews.add(imageView3);
-                return new MyViewHolder(frameLayout, 0);
-            } else {
-                View view = View.inflate(mainActivity, R.layout.item_news_detail, null);
-                return new MyViewHolder(view, 1);
-            }
-        }
-        @Override
-        public void onBindViewHolder(MyViewHolder holder, final int position) {
-            if (getItemViewType(position) == 0) {
-                myTimerTask = null;
-                holder.viewPager_head.setAdapter(headViewPagerAdapter);
-                holder.viewPager_head.setCurrentItem(1);
-                holder.viewPager_head.setCurrentItem(0);
-                holder.viewPager_head.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                    }
-
-                    @Override
-                    public void onPageSelected(int position) {
-                        currentIndex = position;
-
-                        for (int i = 0; i < imageViews.size(); i++) {
-                            imageViews.get(i).setBackgroundResource(R.drawable.indicator_unselected);
-                        }
-                        imageViews.get(position).setBackgroundResource(R.drawable.indicator_selected);
-
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-
-                    }
-                });
-            }
-
-            if (getItemViewType(position) == 1) {
-                holder.textView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //    Intent intent=new Intent(mainActivity,webView)
-                        webViewActivity.newIntent(mainActivity,
-                                arrayBean.get(position).getUrl());
-
-                        // showShare();
-
-                    }
-                });
-                if (arrayBean.size() == position) {
-                } else {
-                    holder.tv_news_detail_author_name.setText(arrayBean.get(position).getDescription());
-                    holder.textView.setText(arrayBean.get(position).getTitle());
-                    holder.tv_news_detail_date.setText(arrayBean.get(position).getCtime());
-                    Glide.with(mainActivity)
-                            .load(arrayBean.get(position).getPicUrl())
-                            .thumbnail(0.1f)
-                            .crossFade()
-                            .placeholder(R.drawable.more)
-                            .diskCacheStrategy(DiskCacheStrategy.ALL)
-
-                            //毛玻璃效果
-                            //  .bitmapTransform(new BlurTransformation(mainActivity))
-
-                            .into(holder.imageView);
-                }
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            int size = ((arrayBean == null) ? 0 : arrayBean.size());
-
-            return size + 1;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            if (position == 0) {
-                return 0;
-            } else {
-                return 1;
-            }
-        }
-    }
 
     //AsyncTask网络请求
     class MyAsynTask extends AsyncTask<Object, String, String> {

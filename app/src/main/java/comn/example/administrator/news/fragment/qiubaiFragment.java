@@ -147,23 +147,17 @@ public class qiubaiFragment extends BasicFragment {
                 try {
                     Document document=Jsoup.connect("http://www.qiushibaike.com/hot/page/"+i+"/?s=4970033")
                             .get();
-                    //  Elements content=document.getElementsByClass("col1");
-
-                    //Log.d("element content",""+content.size());
-
                     Elements elements=document.getElementsByClass("article block untagged mb15");
            qiushibaike qb;
                     for (int i=0;i<elements.size();i++){
                         qb=new qiushibaike();
 
                         Elements href=elements.get(i).getElementsByClass("contentHerf");
-                        //Toast.makeText(getApplicationContext(),"href"+href.size(),Toast.LENGTH_SHORT).show();
-                        Log.d("hrref",""+href.size());
+
                         if (href.size()!=0){
                             for (Element element4:href){
                             qb.setUrl("http://www.qiushibaike.com"+element4.attr("href"));
-                               // Log.d("hrref",""+element4.attr("href"));
-                          //
+
                             }
                         }
 

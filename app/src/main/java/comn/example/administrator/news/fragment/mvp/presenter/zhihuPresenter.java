@@ -2,8 +2,10 @@ package comn.example.administrator.news.fragment.mvp.presenter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.Toast;
@@ -90,14 +92,16 @@ Log.d("test","gouzhao"+"");
                         if (!isIdExitDB(bean.getTitle())) {
 
 
-                            daoUtils.insert("insert into zhihuhu values(?,?,?)",
+                            daoUtils.insert("insert into zhihuhu values(?,?,?,?)",
                                     new String[]{bean.getImages().get(0).toString(),
-                                            bean.getTitle(), bean.getId() + ""}
+                                            bean.getTitle(), bean.getId() + "",null}
                             );
                         }
+                        Intent intent=new Intent("com.localBroadCast.zhihuCache");
+                        intent.putExtra("zhihu_id",bean.getId());
+                      LocalBroadcastManager.getInstance(context)
+                                .sendBroadcast(intent);
                     }
-
-
                 }
             });
 

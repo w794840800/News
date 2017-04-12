@@ -16,7 +16,7 @@ import rx.schedulers.Schedulers;
 public class zhihuModel {
     Context c;
     public zhihuModel(Context context){
-c=context;
+        c=context;
 }
     public void load(String baseUrl,String date,Subscriber<zhihu> storiesBeanSubscriber) {
         RetrofitManager1.getRetrofitManager(c,baseUrl).getInfoService().getZhihuJson(date)

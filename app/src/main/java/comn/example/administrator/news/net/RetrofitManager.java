@@ -21,72 +21,59 @@ import rx.schedulers.Schedulers;
  */
 
 public class RetrofitManager {
-   static OkHttpClient okHttpClient=new OkHttpClient.Builder()
+    static OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(5000, TimeUnit.SECONDS)
-            .readTimeout(5000,TimeUnit.SECONDS)
-            .writeTimeout(5000,TimeUnit.SECONDS)
+            .readTimeout(5000, TimeUnit.SECONDS)
+            .writeTimeout(5000, TimeUnit.SECONDS)
             .build();
-   static Retrofit retrofit;
-   static String baseUrl="";
+    static Retrofit retrofit;
+    static String baseUrl = "";
     public static RetrofitManager retrofitManager;
     InfoService infoService;
-static Context co;
+    static Context context;
+
     public RetrofitManager(String baseUrl1) {
 
-    retrofit=new Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(okHttpClient)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-      //   retrofit
-        //retrofit=createRetrofit(baseUrl);
-    infoService=retrofit.create(InfoService.class);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .client(okHttpClient)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        infoService = retrofit.create(InfoService.class);
 
     }
-/*public static Retrofit createRetrofit(String baseUrl){
 
-      retrofit=new Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .client(okHttpClient)
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build();
-return retrofit;
-}*/
 
-      public static RetrofitManager getRetrofitManager(Context c,String baseUrl1){
-             co=c;
-          baseUrl=baseUrl1;
-         // createRetrofit(baseUrl1);
+    public static RetrofitManager getRetrofitManager(Context context1, String baseUrl1) {
+      context = context1;
+        baseUrl = baseUrl1;
+        if (retrofitManager == null) {
+            synchronized (RetrofitManager.class) {
+                if (retrofitManager == null) {
+                    retrofitManager = new RetrofitManager(baseUrl);
+                }
+            }
+        }
+        return retrofitManager;
 
-          if (retrofitManager == null) {
-              synchronized (RetrofitManager.class) {
-                  if (retrofitManager == null) {
-                      retrofitManager = new RetrofitManager(baseUrl);
-                  }
-              }
-          }
+    }
 
-         // Log.d("url",baseUrl);
-          Toast.makeText(co, ""+baseUrl, Toast.LENGTH_SHORT).show();
-          return retrofitManager;
+    public InfoService getInfoService() {
 
-      }
-    public InfoService getInfoService(){
-       // retrofit.baseUrl()
         return infoService;
 
     }
 
-public void get(String type, Observer<weixinjinxuan> observer){
+    public void get(String type, Observer<weixinjinxuan> observer) {
 
-getInfoService().getInfo(type,"4e3754ff60bd8b8f9ae918f5b8fd3797","5","1")
-.observeOn(AndroidSchedulers.mainThread())
-.subscribeOn(Schedulers.io())
-.subscribe(observer);
+        getInfoService().getInfo(type, "4e3754ff60bd8b8f9ae918f5b8fd3797", "5", "1")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(observer);
 
-}
+    }
 
 
 }

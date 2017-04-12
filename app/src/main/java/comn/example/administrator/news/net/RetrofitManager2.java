@@ -1,7 +1,6 @@
 package comn.example.administrator.news.net;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -19,7 +18,7 @@ import rx.schedulers.Schedulers;
  * Created by Administrator on 2017/3/13.
  */
 
-public class RetrofitManager1 {
+public class RetrofitManager2 {
    static OkHttpClient okHttpClient=new OkHttpClient.Builder()
             .connectTimeout(5000, TimeUnit.SECONDS)
             .readTimeout(5000,TimeUnit.SECONDS)
@@ -27,10 +26,10 @@ public class RetrofitManager1 {
             .build();
    static Retrofit retrofit;
    static String baseUrl="";
-    public static RetrofitManager1 retrofitManager;
+    public static RetrofitManager2 retrofitManager;
     InfoService infoService;
 static Context co;
-    public RetrofitManager1(String baseUrl1) {
+    public RetrofitManager2(String baseUrl1) {
 
     retrofit=new Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -54,15 +53,15 @@ static Context co;
 return retrofit;
 }*/
 
-      public static RetrofitManager1 getRetrofitManager(Context c, String baseUrl1){
+      public static RetrofitManager2 getRetrofitManager(Context c, String baseUrl1){
              co=c;
           baseUrl=baseUrl1;
          // createRetrofit(baseUrl1);
 
           if (retrofitManager == null) {
-              synchronized (RetrofitManager1.class) {
+              synchronized (RetrofitManager2.class) {
                   if (retrofitManager == null) {
-                      retrofitManager = new RetrofitManager1(baseUrl);
+                      retrofitManager = new RetrofitManager2(baseUrl);
                   }
               }
           }

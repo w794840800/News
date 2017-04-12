@@ -1,6 +1,7 @@
 package comn.example.administrator.news.fragment.mvp.view;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import comn.example.administrator.news.adapter.zhihuRecyclerAdapter;
 import comn.example.administrator.news.fragment.mvp.constract.zhihuConstract;
 import comn.example.administrator.news.fragment.mvp.presenter.zhihuPresenter;
 import comn.example.administrator.news.jean.zhihu;
+import comn.example.administrator.news.service.CacheService;
 import okhttp3.Call;
 
 /**
@@ -30,10 +32,18 @@ public class ZhihuhuFragment extends Fragment implements zhihuConstract.View {
     RecyclerView recyclerView;
     zhihuRecyclerAdapter zhihuRecyclerAdapter;
     zhihuConstract.Presenter presenter;
+    CacheService cacheService;
     View mainView;
-     int year=Calendar.getInstance().get(Calendar.YEAR);
-    int month=Calendar.getInstance().get(Calendar.MONTH);
-    int day=Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+    int year = Calendar.getInstance().get(Calendar.YEAR);
+    int month = Calendar.getInstance().get(Calendar.MONTH);
+    int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -43,47 +53,49 @@ public class ZhihuhuFragment extends Fragment implements zhihuConstract.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             boolean isSlidingToLast = false;
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
 
                 super.onScrollStateChanged(recyclerView, newState);
-              if (newState==RecyclerView.SCROLL_STATE_IDLE){
-                  LinearLayoutManager manager= (LinearLayoutManager) recyclerView.getLayoutManager();
-                 //获取最后一个可见的
-               int LastCompletelyVisibleItemPosition=manager.
-                       findLastCompletelyVisibleItemPosition();
-               //获取所有item
-                 int totalCount=manager.getItemCount();
-           if (LastCompletelyVisibleItemPosition==totalCount-1&&isSlidingToLast){
-               Calendar calendar=Calendar.getInstance();
-               calendar.set(year,month,--day);
-               presenter.loadMore(calendar.getTimeInMillis());
-           }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    LinearLayoutManager manager = (LinearLayoutManager)
+                            recyclerView.getLayoutManager();
+                    //获取最后一个可见的
+                    int LastCompletelyVisibleItemPosition = manager.
+                            findLastCompletelyVisibleItemPosition();
+                    //获取所有item
+                    int totalCount = manager.getItemCount();
+                    if (LastCompletelyVisibleItemPosition == totalCount - 1 && isSlidingToLast) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, --day);
+                        presenter.loadMore(calendar.getTimeInMillis());
+                    }
 
 
-              }
+                }
 
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-if (dy>0){
-    isSlidingToLast=true;
-}
+                if (dy > 0) {
+                    isSlidingToLast = true;
+                }
             }
         });
-swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,
-        R.color.colorPrimaryDark,R.color.colorPrimary);
-        new zhihuPresenter(getActivity(),this);
-  presenter.start();
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,
+                R.color.colorPrimaryDark, R.color.colorPrimary);
+        new zhihuPresenter(getActivity(), this);
+        presenter.start();
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-    @Override
-    public void onRefresh() {
-        presenter.refresh();
-    }
-});
-        mainView=view;
+            @Override
+            public void onRefresh() {
+                presenter.refresh();
+            }
+        });
+        mainView = view;
         return view;
     }
 
@@ -96,40 +108,40 @@ swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent,
 
     @Override
     public void showError() {
-        Snackbar.make(mainView,"error",Snackbar.LENGTH_SHORT)
+        Snackbar.make(mainView, "error", Snackbar.LENGTH_SHORT)
                 .show();
     }
 
     @Override
     public void ShowLoading() {
-  swipeRefreshLayout.post(new Runnable() {
-      @Override
-      public void run() {
-     swipeRefreshLayout.setRefreshing(true);
-      }
-  });
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+
+            }
+        });
     }
 
     @Override
     public void stopLoading() {
-swipeRefreshLayout.post(new Runnable() {
-    @Override
-    public void run() {
-     swipeRefreshLayout.setRefreshing(false);
-    }
-});
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     @Override
     public void showResult(ArrayList<zhihu.StoriesBean> arrayList) {
-if (zhihuRecyclerAdapter==null){
-    zhihuRecyclerAdapter=new zhihuRecyclerAdapter(getActivity(),arrayList);
-    recyclerView.setAdapter(zhihuRecyclerAdapter);
-}
-else {
-    zhihuRecyclerAdapter.notifyDataSetChanged();
+        if (zhihuRecyclerAdapter == null) {
+            zhihuRecyclerAdapter = new zhihuRecyclerAdapter(getActivity(), arrayList);
+            recyclerView.setAdapter(zhihuRecyclerAdapter);
+        } else {
+            zhihuRecyclerAdapter.notifyDataSetChanged();
 
-}
+        }
 
     }
 

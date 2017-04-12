@@ -61,7 +61,7 @@ String TABLE_NAME;
         db.execSQL(sql6);
         String sql7= "create table "
                 + "zhihuhu"
-                +" (images varchar(100) ,title,id)";
+                +" (images varchar(100) ,title,id,content)";
         db.execSQL(sql7);
 
     }
